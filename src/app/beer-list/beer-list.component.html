@@ -1,0 +1,111 @@
+<section>
+  <div class="container is-fluid">
+    <div class="grid-container">
+      <div class="grid-item" *ngFor="let beer of beers">
+        <div class="card">
+          <div class="is-pulled-right" (click)="toggleFavourite(beer.id)">
+            <a>
+              <img
+                [attr.src]="
+                  favourites.includes(beer.id)
+                    ? 'assets/star.png'
+                    : 'assets/star-o.png'
+                "
+              />
+            </a>
+          </div>
+          <div>
+            <a (click)="toggleModal(beer)">
+              <img src="{{ beer.image_url }}" alt="Avatar" class="item-img" />
+              <div class="card-container has-text-centered">
+                <h4>
+                  <b>{{ beer.name }}</b>
+                </h4>
+                <p>{{ beer.tagline }}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" [class.is-active]="selectedBeer">
+  <div class="modal-background" (click)="toggleModal()"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title"></p>
+      <button
+        class="delete is-pulled-right"
+        aria-label="close"
+        (click)="toggleModal()"
+      ></button>
+    </header>
+    <section class="modal-card-body" *ngIf="selectedBeer">
+      <!-- Content ... -->
+      <!-- <p *ngIf="selectedBeer">
+        {{ selectedBeer.name }}
+      </p> -->
+
+      <div class="columns">
+        <div class="column">
+          <img
+            src="{{ selectedBeer.image_url }}"
+            alt="Avatar"
+            class="item-img"
+          />
+        </div>
+        <div class="column is-three-quarters">
+          <h4>
+            <b>{{ selectedBeer.name }}</b>
+          </h4>
+          <p>{{ selectedBeer.tagline }}</p>
+
+          <hr class="modal-hr" />
+
+          <div class="columns">
+            <div class="column">
+              <h4><b>IBU:</b> {{ selectedBeer.ibu }}</h4>
+            </div>
+            <div class="column">
+              <h4><b>ABV:</b> {{ selectedBeer.abv }}</h4>
+            </div>
+            <div class="column">
+              <h4><b>EBC:</b> {{ selectedBeer.ebc }}</h4>
+            </div>
+          </div>
+
+          <p>{{ selectedBeer.description }}</p>
+
+          <div class="content">
+            <h4>
+              <b>Better served with</b>
+            </h4>
+
+            <ul>
+              <li *ngFor="let item of selectedBeer.food_pairing">
+                {{ item }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column bordered" *ngFor="let similarBeer of similarBeers">
+          <img
+            src="{{ similarBeer.image_url }}"
+            alt="Avatar"
+            class="item-img"
+          />
+          <div class="card-container">
+            <h4 class="has-text-centered">
+              <b>{{ similarBeer.name }}</b>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
