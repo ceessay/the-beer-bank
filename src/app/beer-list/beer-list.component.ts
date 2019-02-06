@@ -59,6 +59,8 @@ export class BeerListComponent implements OnInit {
     }
     localStorage.setItem("favs", JSON.stringify(this.favourites));
 
+    this.toggleShowFavs();
+
     console.log("favourites", this.favourites);
   }
 
