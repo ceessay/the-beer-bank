@@ -11,28 +11,22 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 export class AppComponent implements OnInit {
   title = "the-beer-bank";
   showFavs: boolean = false;
-  searchResults: any;
-  private searchTerms$ = new Subject<string>();
+
+  beers$: Observable<any>;
+  private searchTerms = new Subject<string>();
 
   constructor(private beerService: BeerService) {}
 
   ngOnInit() {
-    /*this.searchResults$ = this.searchTerms.pipe(
+    this.beers$ = this.searchTerms.pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap((term: string) => {
-        const res = this.beerService.searchBeers(term);
-        res.subscribe(beers => console.log("term", this.searchResults$));
-        return res;
-      })
-    );*/
+      switchMap((term: string) => this.beerService.searchBeers(term))
+    );
   }
 
-  search(term: string): void {
+  search(term: string) {
     console.log("search event .....");
-    this.beerService.searchBeers(term).subscribe(res => {
-      console.log(res);
-    });
-    // this.searchTerms.next(term);
+    this.searchTerms.next(term);
   }
 }

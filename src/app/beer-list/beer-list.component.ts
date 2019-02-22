@@ -22,10 +22,8 @@ export class BeerListComponent implements OnInit {
   selectedBeer = null;
   constructor(private beerService: BeerService) {}
 
-  @Input()
-  showFavs: boolean;
-  @Input()
-  searchTerm: string;
+  @Input() showFavs: boolean;
+  @Input() searchTerm: string;
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("onchanges", changes);
@@ -36,6 +34,7 @@ export class BeerListComponent implements OnInit {
     if (changes.searchTerm) {
     }
   }
+  
   ngOnInit() {
     this.beerService.getBeers().subscribe(beers => {
       this.beers = beers;
