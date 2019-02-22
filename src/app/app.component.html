@@ -36,7 +36,14 @@
       <div class="columns">
         <div class="column"></div>
         <div class="column">
-          <input class="input" type="text" placeholder="Search for beer name" />
+          <input
+            class="input"
+            type="text"
+            id="search-box"
+            #searchBox
+            placeholder="Search for beer name"
+            (input)="search(searchBox.value)"
+          />
         </div>
         <div class="column"></div>
       </div>

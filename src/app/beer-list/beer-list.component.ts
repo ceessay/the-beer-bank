@@ -14,22 +14,27 @@ import { BeerService } from "../beer.service";
   styleUrls: ["./beer-list.component.css"]
 })
 export class BeerListComponent implements OnInit {
-  beers: [Object];
-  allBeers: [Object];
-  similarBeers = [];
-  favourites = [];
+  beers: Array<any>;
+  allBeers: Array<any>;
+  similarBeers: Array<any> = [];
+  favourites: Array<any>;
   isModalActive = false;
   selectedBeer = null;
   constructor(private beerService: BeerService) {}
 
   @Input()
   showFavs: boolean;
+  @Input()
+  searchTerm: string;
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("onchanges", changes);
-    // if (changes.showFavs.previousValue !== changes.showFavs.currentValue) {
-    this.toggleShowFavs();
-    // }
+    if (changes.showFavs) {
+      this.toggleShowFavs();
+    }
+
+    if (changes.searchTerm) {
+    }
   }
   ngOnInit() {
     this.beerService.getBeers().subscribe(beers => {
