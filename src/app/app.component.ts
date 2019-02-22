@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { BeerService } from "./beer.service";
 import { Observable, Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
@@ -8,27 +8,31 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "the-beer-bank";
   showFavs: boolean = false;
-  searchResults$: Observable<any>;
-  private searchTerms = new Subject<string>();
+  searchResults: any;
+  private searchTerms$ = new Subject<string>();
 
   constructor(private beerService: BeerService) {}
 
   ngOnInit() {
-    this.searchResults$ = this.searchTerms.pipe(
+    /*this.searchResults$ = this.searchTerms.pipe(
       debounceTime(400),
       distinctUntilChanged(),
       switchMap((term: string) => {
-        let res = this.beerService.searchBeers(term);
+        const res = this.beerService.searchBeers(term);
         res.subscribe(beers => console.log("term", this.searchResults$));
-        return res
+        return res;
       })
-    );
+    );*/
   }
 
   search(term: string): void {
-    this.searchTerms.next(term);
+    console.log("search event .....");
+    this.beerService.searchBeers(term).subscribe(res => {
+      console.log(res);
+    });
+    // this.searchTerms.next(term);
   }
 }

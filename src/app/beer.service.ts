@@ -12,16 +12,17 @@ export class BeerService {
   constructor(private http: HttpClient) {}
 
   getBeers() {
-    return this.http.get<[Object]>(this.API_URL);
+    return this.http.get<[any]>(this.API_URL);
   }
 
   searchBeers(term: string): Observable<any> {
     // console.log("searchBeers...", term);
 
-    if (!term.trim()) return of([]);
-    let url = `${this.API_URL}?beer_name=${term.replace(" ", "_")}`;
+    if (!term.trim()) { return of([]); }
+
+    const url = `${this.API_URL}?beer_name=${term.replace(" ", "_")}`;
     return this.http
-      .get<[Object]>(url)
+      .get<[any]>(url)
       .pipe(tap(_ => console.log(`found heroes matching "${term}"`)));
   }
 }
