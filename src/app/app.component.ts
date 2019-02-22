@@ -23,6 +23,7 @@ export class AppComponent {
       switchMap((term: string) => {
         let res = this.beerService.searchBeers(term);
         res.subscribe(beers => console.log("term", this.searchResults$));
+        return res
       })
     );
   }
