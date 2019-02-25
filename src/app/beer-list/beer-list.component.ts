@@ -8,6 +8,9 @@ import {
 } from "@angular/core";
 import { BeerService } from "../beer.service";
 
+import { Observable, Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+
 @Component({
   selector: "app-beer-list",
   templateUrl: "./beer-list.component.html",
@@ -20,21 +23,27 @@ export class BeerListComponent implements OnInit {
   favourites: Array<any>;
   isModalActive = false;
   selectedBeer = null;
+  beers$: Observable<any>;
+
+  private searchTerms = new Subject<string>();
+
   constructor(private beerService: BeerService) {}
 
   @Input() showFavs: boolean;
   @Input() searchTerm: string;
+  @Input() term: string;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("onchanges", changes);
+    // console.log("onchanges", changes);
     if (changes.showFavs) {
       this.toggleShowFavs();
     }
 
-    if (changes.searchTerm) {
+    if (changes.term) {
+      this.search(changes.term.currentValue);
     }
   }
-  
+
   ngOnInit() {
     this.beerService.getBeers().subscribe(beers => {
       this.beers = beers;
@@ -42,6 +51,17 @@ export class BeerListComponent implements OnInit {
     });
     let favs = localStorage.getItem("favs");
     this.favourites = JSON.parse(favs ? favs : "[]");
+
+    this.beers$ = this.searchTerms.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.beerService.searchBeers(term))
+    );
+  }
+
+  search(term: string) {
+    console.log("search event .....", term);
+    this.searchTerms.next(term);
   }
 
   toggleModal(beer: any = null) {

@@ -1,3 +1,15 @@
+
+<section>
+  <div class="container is-fluid">
+    <div class="grid-container">
+      <div class="grid-item" *ngFor="let beer of (beers$ | async)">
+        <p>{{ beer.name }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section>
   <div class="container is-fluid">
     <div class="grid-container">
