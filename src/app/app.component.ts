@@ -13,7 +13,6 @@ export class AppComponent implements OnInit{
   // showFavs: boolean = false;
   // term: string;
   beers: any;
-  results: any;
   searchTerm$ = new Subject<string>();
   favourites: Array<any>;
 
@@ -21,7 +20,7 @@ export class AppComponent implements OnInit{
     this.beerService.search(this.searchTerm$)
       .subscribe(data => {
         console.log(data);
-        this.results = data;
+        this.beers = data;
       });
   }
 

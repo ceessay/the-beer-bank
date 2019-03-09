@@ -19,27 +19,14 @@ export class BeerService {
     return terms.pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap(term => this.searchEntries(term))
+      switchMap(term => this.searchBeers(term))
     );
   }
 
-  searchEntries(term) {
-    const searchTerm = term.replace(" ", "_");
-    console.log(`searchTerm = ${searchTerm}`);
-    const url = (searchTerm !== undefined || searchTerm !== "") ? `${this.API_URL}?beer_name=${searchTerm}` : `${this.API_URL}`;
+  searchBeers(term: string): Observable<any> {
+    const url = !!term ? `${this.API_URL}?beer_name=${term.replace(" ", "_")}` : `${this.API_URL}`;
     console.log(`url = ${url}`);
     return this.http.get(url).pipe(map(res => res));
-  }
-
-  searchBeers(term: string): Observable<any> {
-    // console.log("searchBeers...", term);
-
-    if (!term.trim()) { return of([]); }
-
-    const url = `${this.API_URL}?beer_name=${term.replace(" ", "_")}`;
-    return this.http
-      .get<[any]>(url)
-      .pipe(tap(_ => console.log(`found heroes matching "${term}"`)));
   }
 
   /*searchBeers(term: string) {
