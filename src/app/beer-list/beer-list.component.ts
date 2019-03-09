@@ -17,7 +17,12 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
   styleUrls: ["./beer-list.component.css"]
 })
 export class BeerListComponent implements OnInit {
+  @Input() beers: any;
+  favourites: Array<any>;
+
   ngOnInit(): void {
+    const favs = localStorage.getItem("favs");
+    this.favourites = JSON.parse(favs ? favs : "[]");
   }
 
   /*beers: Array<any>;

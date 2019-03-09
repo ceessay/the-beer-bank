@@ -9,12 +9,8 @@ import {Subject} from "rxjs";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit{
-  title = "the-beer-bank";
-  // showFavs: boolean = false;
-  // term: string;
   beers: any;
   searchTerm$ = new Subject<string>();
-  favourites: Array<any>;
 
   constructor(private beerService: BeerService) {
     this.beerService.search(this.searchTerm$)
@@ -26,7 +22,5 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.beerService.getBeers().subscribe(results => this.beers = results);
-    const favs = localStorage.getItem("favs");
-    this.favourites = JSON.parse(favs ? favs : "[]");
   }
 }

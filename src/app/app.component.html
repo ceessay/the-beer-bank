@@ -36,15 +36,7 @@
       <div class="columns">
         <div class="column"></div>
         <div class="column">
-          <!--<input
-            class="input"
-            type="text"
-            id="search-box"
-            #searchBox
-            placeholder="Search for beer name"
-            (input)="search(searchBox.value)"
-          />-->
-          <input class="input" type="text" (keyup)="searchTerm$.next($event.target.value)"  />
+          <input class="input" type="text" (keyup)="searchTerm$.next($event.target.value)" placeholder="Search for beer name"  />
         </div>
         <div class="column"></div>
       </div>
@@ -52,56 +44,6 @@
   </div>
 </section>
 
-<section>
-  <div class="container is-fluid">
-    <div class="grid-container">
-      <div class="grid-item" *ngFor="let beer of beers">
-        <div class="card">
-          <div class="is-pulled-right">
-            <a>
-              <img alt="test"
-                [attr.src]="
-                  favourites.includes(beer.id)
-                    ? 'assets/star.png'
-                    : 'assets/star-o.png'
-                "
-              />
-            </a>
-          </div>
-          <div>
-            <a>
-              <img src="{{ beer.image_url }}" alt="Avatar" class="item-img" />
-              <div class="card-container has-text-centered">
-                <h4>
-                  <b>{{ beer.name }}</b>
-                </h4>
-                <p>{{ beer.tagline }}</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--<section>
-  <div class="container is-fluid">
-    <div class="grid-container" *ngIf="results">
-      <div class="grid-item" *ngFor="let beer of results">
-        <div class="card">
-          <div class="is-pulled-right" (click)="toggleFavourite(beer.id)">
-            <a>
-              <img
-                [attr.src]="
-                  favourites.includes(beer.id)
-                    ? 'assets/star.png'
-                    : 'assets/star-o.png'
-                "
-              />
-            </a>
-          </div>
-      </div>
-    </div>
-  </div>
-</section>-->
+<app-beer-list [beers]="beers"></app-beer-list>
+
 <!--<app-beer-list [showFavs]="showFavs" [term]="term"></app-beer-list>-->

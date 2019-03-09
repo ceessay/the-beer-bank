@@ -1,3 +1,36 @@
+<section>
+  <div class="container is-fluid">
+    <div class="grid-container">
+      <div class="grid-item" *ngFor="let beer of beers">
+        <div class="card">
+          <div class="is-pulled-right">
+            <a>
+              <img alt="test"
+                   [attr.src]="
+                  favourites.includes(beer.id)
+                    ? 'assets/star.png'
+                    : 'assets/star-o.png'
+                "
+              />
+            </a>
+          </div>
+          <div>
+            <a>
+              <img src="{{ beer.image_url }}" alt="Avatar" class="item-img" />
+              <div class="card-container has-text-centered">
+                <h4>
+                  <b>{{ beer.name }}</b>
+                </h4>
+                <p>{{ beer.tagline }}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!--<section>
   <div class="container is-fluid">

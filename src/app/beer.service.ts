@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap, map, tap } from "rxjs/operators";
 
 @Injectable({
@@ -28,12 +28,5 @@ export class BeerService {
     console.log(`url = ${url}`);
     return this.http.get(url).pipe(map(res => res));
   }
-
-  /*searchBeers(term: string) {
-    console.log("search event with term ", term);
-    const url = `${this.API_URL}?beer_name=${term.replace(" ", "_")}`;
-    console.log("url => ", url);
-    return this.http.get(url).pipe(map(res => res));
-  }*/
 
 }
