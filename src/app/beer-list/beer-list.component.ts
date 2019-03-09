@@ -17,7 +17,10 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
   styleUrls: ["./beer-list.component.css"]
 })
 export class BeerListComponent implements OnInit {
-  beers: Array<any>;
+  ngOnInit(): void {
+  }
+
+  /*beers: Array<any>;
   allBeers: Array<any>;
   similarBeers: Array<any> = [];
   favourites: Array<any>;
@@ -108,4 +111,5 @@ export class BeerListComponent implements OnInit {
     }
     return similarBeers;
   }
+  */
 }
